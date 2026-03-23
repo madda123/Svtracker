@@ -7,8 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 
 const loginSchema = z.object({
-  email: z.string().min(3),
-  password: z.string().min(3),
+  email: z
+    .string()
+    .nonempty("email is required")
+    .email("email format not valid")
+    .min(5, "email must have at least 5 characters"),
+  password: z
+    .string()
+    .nonempty("password is required")
+    .min(3, "password must have at least 3 characters"),
 });
 
 type LoginSchema = z.infer<typeof loginSchema>;
@@ -26,6 +33,7 @@ const Login = () => {
 
   const handleSubmit = async (value: LoginSchema) => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const data = await login(value);
 
       if (!data) {
@@ -62,12 +70,17 @@ const Login = () => {
                 Email
               </label>
               <input
-                type="email"
+                type="text"
                 id="email"
                 placeholder="madda.athiarahman@gmail.com"
                 {...form.register("email")}
                 className="input-box"
               />
+              {form.formState.errors.email && (
+                <p className="mt-1 text-bs-m md:text-bs text-danger">
+                  {form.formState.errors.email.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
@@ -83,10 +96,18 @@ const Login = () => {
                 {...form.register("password")}
                 className="input-box"
               />
+              {form.formState.errors.password && (
+                <p className="mt-1 text-bs-m md:text-bs text-danger">
+                  {form.formState.errors.password.message}
+                </p>
+              )}
             </div>
           </div>
-          <button className="h-7 md:h-9 bg-cusorange text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer">
-            Login
+          <button
+            disabled={form.formState.isSubmitting}
+            className={`${form.formState.isSubmitting ? "bg-cusred" : "bg-cusorange"} h-7 md:h-9 hover:bg-cusred text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer`}
+          >
+            {form.formState.isSubmitting ? "Loading..." : "Login"}
           </button>
         </form>
         <p className="text-bs-m md:text-bs text-cusdarkgrey font-semibold">

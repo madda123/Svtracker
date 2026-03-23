@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import z from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { Link, useNavigate } from "react-router";
@@ -8,13 +8,25 @@ import { register } from "../../api/authApi";
 
 const registerSchema = z
   .object({
-    fullname: z.string().min(3),
-    email: z.string().min(3),
-    password: z.string().min(3),
-    confirmPassword: z.string().min(3),
+    fullname: z
+      .string()
+      .nonempty("fullname is required")
+      .min(3, "fullname must have at least 3 characters"),
+    email: z
+      .string()
+      .nonempty("email is required")
+      .min(5, "email must have at least 5 characters"),
+    password: z
+      .string()
+      .nonempty("password is required")
+      .min(3, "password must have at least 3 characters"),
+    confirmPassword: z
+      .string()
+      .nonempty("please confirm your password")
+      .min(3, "confirm password must have at least 3 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Must be same with password input!",
+    message: "confirm password does not match",
     path: ["confirmPassword"],
   });
 
@@ -34,6 +46,7 @@ const Register = () => {
   });
 
   const handleSubmit = async (value: RegisterSchema) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const data = await register(value);
 
     if (!data) {
@@ -72,6 +85,11 @@ const Register = () => {
                 {...form.register("fullname")}
                 className="input-box"
               />
+              {form.formState.errors.fullname && (
+                <p className="mt-1 text-bs-m md:text-bs text-danger">
+                  {form.formState.errors.fullname.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col">
               <label
@@ -87,42 +105,64 @@ const Register = () => {
                 {...form.register("email")}
                 className="input-box"
               />
+              {form.formState.errors.email && (
+                <p className="mt-1 text-bs-m md:text-bs text-danger">
+                  {form.formState.errors.email.message}
+                </p>
+              )}
             </div>
-            <div className="grid grid-cols-2 gap-3.5">
-              <div className="flex flex-col">
-                <label
-                  htmlFor="password"
-                  className="text-bd-m md:text-bd font-semibold mb-1"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="••••••••••"
-                  {...form.register("password")}
-                  className="input-box"
-                />
+            <div>
+              <div className="grid grid-cols-2 gap-3.5">
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="password"
+                    className="text-bd-m md:text-bd font-semibold mb-1"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="••••••••••"
+                    {...form.register("password")}
+                    className="input-box"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="confirmPassword"
+                    className="text-bd-m md:text-bd font-semibold mb-1"
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="••••••••••"
+                    {...form.register("confirmPassword")}
+                    className="input-box"
+                  />
+                </div>
               </div>
-              <div className="flex flex-col">
-                <label
-                  htmlFor="confirmPassword"
-                  className="text-bd-m md:text-bd font-semibold mb-1"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  placeholder="••••••••••"
-                  {...form.register("confirmPassword")}
-                  className="input-box"
-                />
-              </div>
+              {(form.formState.errors.password ||
+                form.formState.errors.confirmPassword) && (
+                <p className="mt-1 text-bs-m md:text-bs text-danger">
+                  {[
+                    form.formState.errors.password?.message,
+                    form.formState.errors.confirmPassword?.message,
+                  ]
+                    .filter(Boolean)
+                    .join(", ")}
+                </p>
+              )}
             </div>
           </div>
-          <button className="h-9 bg-cusorange text-cuswhite text-bd font-semibold rounded-md cursor-pointer hover:bg-cusorange">
-            Register
+
+          <button
+            disabled={form.formState.isSubmitting}
+            className={`${form.formState.isSubmitting ? "bg-cusred" : "bg-cusorange"} h-7 md:h-9 hover:bg-cusred text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer`}
+          >
+            {form.formState.isSubmitting ? "Loading..." : "Register"}
           </button>
         </form>
         <p className="text-bs text-cusdarkgrey font-semibold">
