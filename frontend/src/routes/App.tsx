@@ -6,12 +6,21 @@ import Register from "../pages/auth/Register";
 import Income from "../pages/dashboard/Income";
 import Expense from "../pages/dashboard/Expense";
 import ProtectedRoute from "./ProtectedRoute";
+import DashboardLayout from "../components/layout/DashboardLayout";
+import Settings from "../pages/dashboard/Settings";
+import Logout from "../pages/dashboard/Logout";
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<DashboardLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/income" element={<Income />} />
+          <Route path="/expense" element={<Expense />} />
+          <Route path="/setting" element={<Settings />} />
+          <Route path="/logout" element={<Logout />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route

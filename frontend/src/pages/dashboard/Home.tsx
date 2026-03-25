@@ -3,9 +3,9 @@ import DashboardLayout from "../../components/layout/DashboardLayout";
 
 const Home = () => {
   return (
-    <DashboardLayout>
-      <div>Dashboard</div>
-    </DashboardLayout>
+    <div>
+      <div></div>
+    </div>
   );
 };
 
