@@ -12,12 +12,12 @@ export const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(404).json("User tidak ditemukan!");
+      return res.status(404).json({ message: "User not found" });
     }
 
     const isPasswordValid = await user.comparePassword(req.body.password);
     if (isPasswordValid === false) {
-      return res.status(400).json("Password tidak valid");
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const token = await generateToken(user._id);
@@ -27,9 +27,9 @@ export const loginUser = async (req, res) => {
         httpOnly: true,
       })
       .status(200)
-      .json("Login berhasil");
+      .json({ message: "Login successful" });
   } catch (error) {
-    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -43,16 +43,16 @@ export const registerUser = async (req, res) => {
       password: password,
     });
 
-    res.status(201).json("User berhasil ditambahkan");
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    console.error(error);
+    res.status(500).json({ message: "internal server error" });
   }
 };
 
 export const checkAuth = async (req, res) => {
   try {
-    res.status(200).json({ _id: req.user._id });
+    res.status(200).json({ _id: req.user._id, message: "Authenticated" });
   } catch (error) {
-    console.error(error);
+    res.status(500).json({ message: "internal server error" });
   }
 };

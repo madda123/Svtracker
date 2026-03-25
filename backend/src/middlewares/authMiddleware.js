@@ -4,13 +4,17 @@ import jwt from "jsonwebtoken";
 // REGISTER MIDDLEWARE
 export const validateRegister = async (req, res, next) => {
   if (!req.body) {
-    return res.status(400).json("Input kosong, silahkan isi terlebih dahulu");
+    return res.status(400).json({
+      message: "Request body is empty",
+    });
   }
 
   const { fullname, email, password } = req.body;
 
   if (!fullname || !email || !password) {
-    return res.status(400).json("Fullname, email, dan password wajib");
+    return res.status(400).json({
+      message: "Full name, email, and password are required",
+    });
   }
 
   next();
@@ -20,7 +24,9 @@ export const checkUserExistRegister = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (user) {
-    return res.status(400).json("Email sudah terdaftar");
+    return res.status(409).json({
+      message: "Email is already registered",
+    });
   }
 
   next();
@@ -29,13 +35,17 @@ export const checkUserExistRegister = async (req, res, next) => {
 // LOGIN MIDDLEWARE
 export const validateLogin = async (req, res, next) => {
   if (!req.body) {
-    return res.status(400).json("Input kosong, silahkan isi terlebih dahulu");
+    return res.status(400).json({
+      message: "Request body is empty",
+    });
   }
 
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json("Email dan password wajib");
+    return res.status(400).json({
+      message: "Email and password are required",
+    });
   }
 
   next();
@@ -45,7 +55,9 @@ export const checkUserExistLogin = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return res.status(400).json("Email tidak terdaftar");
+    return res.status(404).json({
+      message: "User not found",
+    });
   }
 
   next();
@@ -54,10 +66,12 @@ export const checkUserExistLogin = async (req, res, next) => {
 // ANY MIDDLEWARE
 export const verifyToken = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies?.token;
 
     if (!token) {
-      return res.status(401).json("Token tidak ditemukan");
+      return res.status(401).json({
+        message: "Authentication token is missing",
+      });
     }
 
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
@@ -68,6 +82,8 @@ export const verifyToken = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error(error);
+    return res.status(401).json({
+      message: "Invalid or expired token",
+    });
   }
 };

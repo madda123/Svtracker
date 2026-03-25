@@ -5,12 +5,14 @@ export const getUserById = async (req, res) => {
     const user = await User.findById(req.user._id).select("-password");
 
     if (!user) {
-      return res.status(404).json("User tidak ditemukan");
+      return res.status(404).json({
+        message: "User not found",
+      });
     }
 
     res.status(200).json(user);
   } catch (error) {
-    console.error(error);
+    res.status(500).json({ message: "internal server error" });
   }
 };
 
@@ -24,7 +26,9 @@ export const updateProfileImage = async (req, res) => {
     const { url, publicId } = req.body;
 
     if (!url || !publicId) {
-      res.status(400).json("Input tidak valid");
+      return res.status(400).json({
+        message: "Image URL and public ID are required",
+      });
     }
 
     await User.findByIdAndUpdate(
@@ -38,8 +42,11 @@ export const updateProfileImage = async (req, res) => {
       { returnDocument: "after", runValidators: true },
     );
 
-    res.status(200).json("Profile image berhasil diupdate");
+    res.status(200).json({
+      message: "Profile image updated successfully",
+      profileImage: updatedUser.profileImage,
+    });
   } catch (error) {
-    console.error(error);
+    res.status(500).json({ message: "internal server error" });
   }
 };
