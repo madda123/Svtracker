@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { Link, useNavigate } from "react-router";
 import { register } from "../../api/authApi";
+import logo from "../../assets/images/svtracker-logo.png";
 
 const registerSchema = z
   .object({
@@ -58,6 +59,7 @@ const Register = () => {
   return (
     <AuthLayout>
       <div className="w-full h-full md:pr-5 flex flex-col items-center justify-center gap-7.5 md:gap-9.75">
+        <img src={logo} alt="logo" className="w-7.25 h-7.25" />
         <div className="flex flex-col items-center justify-center">
           <h2 className="text-h2-m md:text-h2 text-cusblack font-bold">
             Create an Account
