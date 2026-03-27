@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectDB } from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import cloudinaryRoutes from "./src/routes/cloudinaryRoutes.js";
+import dashboardRoutes from "./src/routes/dashboardRoutes.js";
 import expenseRoutes from "./src/routes/expenseRoutes.js";
 import incomeRoutes from "./src/routes/incomeRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
@@ -27,6 +28,7 @@ connectDB();
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/cloudinary", cloudinaryRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/income", incomeRoutes);
 app.use("/api/v1/user", userRoutes);
