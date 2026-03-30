@@ -4,14 +4,15 @@ import {
   type DashboardSchema,
 } from "../../schemas/dashboardSchema";
 import Card from "../../components/ui/Card";
-import { getDashboardData } from "../../api/dashboardApi";
+import { getDashboard } from "../../api/dashboardApi";
+import Table from "../../components/ui/Table";
 
 const Home = () => {
   const [dashboard, setDashboard] = useState<DashboardSchema | null>(null);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
-      const data = await getDashboardData();
+      const data = await getDashboard();
 
       if (!data) {
         console.log("Something went wrong");
@@ -50,13 +51,15 @@ const Home = () => {
         </Card>
       </div>
       <div className="grid grid-cols-4 grid-row-2 gap-2.5">
-        <Card className="col-span-2 row-span-2 h-105">
-          <div></div>
+        <Card className="col-span-3 row-span-2 h-105">
+          <p className="text-bd text-cusblack font-semibold">
+            Recent Incomes/Expenses
+          </p>
+          <div className="overflow-x-auto">
+            <Table transactions={dashboard?.recentTransactions ?? []} />
+          </div>
         </Card>
-        <Card className="col-span-2 row-span-1 h-51.25">
-          <div></div>
-        </Card>
-        <Card className="col-span-2 row-span-1 h-51.25">
+        <Card className="col-span-1 row-span-2">
           <div></div>
         </Card>
       </div>

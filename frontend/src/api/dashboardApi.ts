@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3000/api/v1";
 
-export const getDashboardData = async () => {
+export const getDashboard = async () => {
   try {
     const res = await fetch(`${BASE_URL}/dashboard`, {
       method: "GET",

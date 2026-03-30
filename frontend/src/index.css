@@ -49,3 +49,11 @@ html {
 .input-box {
   @apply w-full h-7 md:h-9 px-3.75 text-bs-m md:text-bs font-semibold bg-cuswhite border-2 border-cusdarkgrey rounded-md outline-none focus:border-none focus:ring-2 focus:ring-cusorange text-cusblack placeholder:text-bs-m md:placeholder:text-bs placeholder:font-semibold placeholder:text-cusdarkgrey;
 }
+
+.table-header {
+  @apply text-left text-bs uppercase p-2;
+}
+
+.table-body {
+  @apply text-left text-bs p-2;
+}
