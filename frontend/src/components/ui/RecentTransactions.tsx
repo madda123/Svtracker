@@ -2,6 +2,7 @@ import React from "react";
 import type { DashboardSchema } from "../../schemas/dashboardSchema";
 import { formatRupiah } from "../../utils/formatRupiah";
 import { formatDate } from "../../utils/formatDate";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 type Props = {
   transactions: DashboardSchema["recentTransactions"];
@@ -30,10 +31,19 @@ const RecentTransactions = ({ transactions }: Props) => {
                 </p>
               </div>
             </div>
-            <div>
-              <p className="text-bs text-cusblack font-semibold">
+            <div
+              className={`flex items-center rounded-md gap-1 py-1 px-2 ${transaction.source ? "bg-success/10 text-success" : "bg-danger/10 text-danger"}`}
+            >
+              <p className="text-capt font-semibold">
                 {formatRupiah(transaction.amount)}
               </p>
+              <div>
+                {transaction.source ? (
+                  <TrendingUp strokeWidth={2} width={15} height={15} />
+                ) : (
+                  <TrendingDown strokeWidth={2} width={15} height={15} />
+                )}
+              </div>
             </div>
           </div>
         );

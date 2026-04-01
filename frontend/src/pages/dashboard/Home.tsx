@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col gap-3.75">
-      <div className="grid grid-cols-4 gap-2.5">
+      <div className="grid grid-cols-1 min-[600px]:grid-cols-2 min-[950px]:grid-cols-4 gap-2.5">
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">Total Income</p>
           <p className="text-h5 text-cusblack font-bold">

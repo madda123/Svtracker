@@ -1,14 +1,14 @@
 import React from "react";
 import type { UserSchema } from "../../schemas/userSchema";
-import { ChevronDown } from "lucide-react";
 
 type Props = {
   user: UserSchema | null;
+  className: string;
 };
 
-const Profile = ({ user }: Props) => {
+const Profile = ({ user, className }: Props) => {
   return (
-    <div className="flex items-center gap-2.5 ">
+    <div className={`flex items-center gap-2.5 ${className}`}>
       <img
         src={user?.profileImage.url}
         alt="profile-image"

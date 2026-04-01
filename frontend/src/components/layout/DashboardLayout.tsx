@@ -5,6 +5,7 @@ import { Outlet, useLocation } from "react-router";
 import Profile from "../ui/Profile";
 import { userSchema, type UserSchema } from "../../schemas/userSchema";
 import { getUserById } from "../../api/userApi";
+import Navbar from "../ui/Navbar";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -39,13 +40,14 @@ const DashboardLayout = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-[240px_1fr] w-screen h-screen bg-cusgrey">
+    <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] w-screen h-screen bg-cusgrey">
+      <Navbar />
       <Sidebar />
-      <section className="h-screen overflow-y-auto py-12 px-11.25 scrollbar-thin">
+      <section className="h-screen overflow-y-auto py-3.75 md:py-6.5 px-8 no-scrollbar">
         <div className="flex flex-col gap-3.75">
           <div className="flex justify-between items-center">
             <h4 className="text-cusblack text-h4 font-bold">{pageName}</h4>
-            <Profile user={profile} />
+            <Profile user={profile} className="hidden md:flex" />
           </div>
           <Outlet />
         </div>
