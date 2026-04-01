@@ -20,7 +20,7 @@ const RecentTransactions = ({ transactions }: Props) => {
                 className="w-6 h-6 rounded-full"
               />
               <div className="flex flex-col items-start">
-                <p className="text-bd text-cusblack font-semibold capitalize">
+                <p className="text-bs text-cusblack font-semibold capitalize">
                   {transaction.source
                     ? transaction.source
                     : transaction.category}
@@ -31,7 +31,7 @@ const RecentTransactions = ({ transactions }: Props) => {
               </div>
             </div>
             <div>
-              <p className="text-bd text-cusblack font-semibold">
+              <p className="text-bs text-cusblack font-semibold">
                 {formatRupiah(transaction.amount)}
               </p>
             </div>

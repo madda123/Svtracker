@@ -45,7 +45,7 @@ const DashboardLayout = () => {
         <div className="flex flex-col gap-3.75">
           <div className="flex justify-between items-center">
             <h4 className="text-cusblack text-h4 font-bold">{pageName}</h4>
-            <Profile url={profile?.profileImage.url} />
+            <Profile user={profile} />
           </div>
           <Outlet />
         </div>

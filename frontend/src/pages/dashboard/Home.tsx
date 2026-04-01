@@ -56,7 +56,7 @@ const Home = () => {
           <p className="text-bd text-cusblack font-semibold">
             Recent Incomes/Expenses
           </p>
-          <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-col gap-3 p-2">
             <RecentTransactions
               transactions={dashboard?.recentTransactions ?? []}
             />

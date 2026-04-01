@@ -1,18 +1,27 @@
 import React from "react";
+import type { UserSchema } from "../../schemas/userSchema";
+import { ChevronDown } from "lucide-react";
 
 type Props = {
-  url?: string;
+  user: UserSchema | null;
 };
 
-const Profile = ({ url }: Props) => {
+const Profile = ({ user }: Props) => {
   return (
     <div className="flex items-center gap-2.5 ">
       <img
-        src={url}
+        src={user?.profileImage.url}
         alt="profile-image"
         className="w-10 h-10 rounded-4xl object-cover"
       />
-      <p className="text-cusblack text-bd font-semibold">Madda Athia Rahman</p>
+      <div className="flex flex-col gap-1">
+        <p className="text-cusblack text-bd font-semibold leading-none">
+          {user?.fullname}
+        </p>
+        <p className="text-capt leading-none text-cusdarkgrey font-semibold">
+          {user?.email}
+        </p>
+      </div>
     </div>
   );
 };
