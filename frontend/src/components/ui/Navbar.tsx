@@ -4,11 +4,11 @@ import { Menu } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="flex items-center md:hidden gap-6 px-8 py-3 bg-cuswhite">
-      <Menu strokeWidth={2.5} />
+    <nav className="fixed top-0 inset-x-0 flex items-center md:hidden justify-between px-4 py-3 bg-cuswhite shadow-md">
+      <Menu strokeWidth={2} />
       <NavLink to="/" className="flex items-center gap-1.5 font-bold">
-        <img src={logo} alt="logo" className="w-7.25 h-7.25" />
-        <p className="text-h6 text-cusblack">Svtracker</p>
+        <img src={logo} alt="logo" className="w-5 h-5" />
+        <p className="text-bd text-cusblack">Svtracker</p>
       </NavLink>
     </nav>
   );
