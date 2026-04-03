@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Card = ({ children, className }: Props) => {
-  const baseClass = "bg-cuswhite rounded-[10px] p-3.75 shadow-md";
+  const baseClass = "bg-cuswhite rounded-[10px] p-4 shadow-md";
   return <div className={`${baseClass} ${className}`}>{children}</div>;
 };
 

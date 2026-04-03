@@ -1,0 +1,75 @@
+const BASE_URL = "http://localhost:3000/api/v1";
+
+type Expense = {
+  icon: string;
+  category: string;
+  amount: number;
+  date: Date;
+};
+
+export const getAllExpense = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/expense`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      console.log("Failed to get expense data");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.log("Internal server error");
+  }
+};
+
+export const addExpense = async ({ icon, category, amount, date }: Expense) => {
+  try {
+    const newExpense = {
+      icon,
+      category,
+      amount,
+      date,
+    };
+
+    const res = await fetch(`${BASE_URL}/expense`, {
+      method: "POST",
+      credentials: "include",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newExpense),
+    });
+
+    if (!res.ok) {
+      console.log("Failed to add expense data");
+    }
+
+    const result = await res.json();
+    console.log(result);
+  } catch (error) {
+    console.log("Internal server error");
+  }
+};
+
+export const deleteExpense = async (id: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/expense/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      console.log("Failed to delete expense data");
+    }
+
+    const result = await res.json();
+    console.log(result);
+  } catch (error) {
+    console.log("Internal server error");
+  }
+};

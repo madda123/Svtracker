@@ -11,6 +11,14 @@ const Home = () => {
       <div className="grid grid-cols-2 min-[600px]:grid-cols-2 min-[950px]:grid-cols-4 gap-2.5">
         <Card className="h-26 md:h-32.5">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
+            Total Balance
+          </p>
+          <p className="text-h5-m md:text-h5 text-cusblack font-bold">
+            {formatRupiah(dashboard?.totalBalance)}
+          </p>
+        </Card>
+        <Card className="h-26 md:h-32.5">
+          <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Total Income
           </p>
           <p className="text-h5-m md:text-h5 text-cusblack font-bold">
@@ -19,20 +27,13 @@ const Home = () => {
         </Card>
         <Card className="h-26 md:h-32.5">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-            Expense Total
+            Total Expense
           </p>
           <p className="text-h5-m md:text-h5 text-cusblack font-bold">
             {formatRupiah(dashboard?.totalExpenses)}
           </p>
         </Card>
-        <Card className="h-26 md:h-32.5">
-          <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-            My Wallet
-          </p>
-          <p className="text-h5-m md:text-h5 text-cusblack font-bold">
-            {formatRupiah(dashboard?.totalBalance)}
-          </p>
-        </Card>
+
         <Card className="h-26 md:h-32.5">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Percentage
@@ -45,7 +46,7 @@ const Home = () => {
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Recent Incomes/Expenses
           </p>
-          <div className="flex flex-col gap-3 p-2">
+          <div className="flex flex-col gap-3 p-2 mt-2 md:-4">
             <RecentTransactions
               transactions={dashboard?.recentTransactions ?? []}
             />

@@ -14,7 +14,10 @@ const Income = () => {
       </div>
       <div className="grid grid-cols-1 h-100 gap-2.5">
         <Card>
-          <div></div>
+          <p className="text-bd-m md:text-bd text-cusblack font-semibold">
+            Last 60 Days Income
+          </p>
+          <div className="flex flex-col gap-3 p-2 mt-2 md:-4"></div>
         </Card>
       </div>
     </div>
