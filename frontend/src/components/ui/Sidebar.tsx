@@ -4,9 +4,10 @@ import logo from "../../assets/images/svtracker-logo.png";
 import {
   ChartColumnIncreasing,
   TrendingUp,
-  WalletMinimal,
   Settings,
   LogOut,
+  HandCoins,
+  PiggyBank,
 } from "lucide-react";
 import { logout } from "../../api/authApi";
 import { NavLink, useNavigate } from "react-router";
@@ -47,7 +48,7 @@ const Sidebar = () => {
    ${isActive ? "text-cuswhite bg-cusorange" : "text-cusblack hover:text-cuswhite hover:bg-cusorange"}`
           }
         >
-          <TrendingUp strokeWidth={2.5} className="w-5 h-5" />
+          <PiggyBank strokeWidth={2.5} className="w-5 h-5" />
           <p className="text-bd font-semibold">Incomes</p>
         </NavLink>
         <NavLink
@@ -57,7 +58,7 @@ const Sidebar = () => {
    ${isActive ? "text-cuswhite bg-cusorange" : "text-cusblack hover:text-cuswhite hover:bg-cusorange"}`
           }
         >
-          <WalletMinimal strokeWidth={2.5} className="w-5 h-5" />
+          <HandCoins strokeWidth={2.5} className="w-5 h-5" />
           <p className="text-bd font-semibold">Expenses</p>
         </NavLink>
         <NavLink

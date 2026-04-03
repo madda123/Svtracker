@@ -1,29 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  dashboardSchema,
-  type DashboardSchema,
-} from "../../schemas/dashboardSchema";
 import Card from "../../components/ui/Card";
-import { getDashboard } from "../../api/dashboardApi";
 import { formatRupiah } from "../../utils/formatRupiah";
 import RecentTransactions from "../../components/ui/RecentTransactions";
+import { useDashboard } from "../../hooks/useDashboard";
 
 const Home = () => {
-  const [dashboard, setDashboard] = useState<DashboardSchema | null>(null);
-
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      const data = await getDashboard();
-
-      if (!data) {
-        console.log("Something went wrong");
-      }
-
-      setDashboard(data);
-    };
-
-    fetchDashboardData();
-  }, []);
+  const { dashboard } = useDashboard();
 
   return (
     <div className="flex flex-col gap-3.75">
