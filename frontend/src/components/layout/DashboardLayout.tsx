@@ -56,7 +56,7 @@ const DashboardLayout = () => {
       opacity-100"
         />
       )}
-      <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Drawer user={profile} isOpen={isOpen} setIsOpen={setIsOpen} />
       <Navbar handleHamburger={handleHamburger} />
       <Sidebar />
       <section className="flex-1 overflow-y-auto pb-3.75 pt-12 md:pt-2.5 md:pb-6.5 px-4 md:px-8">
@@ -65,7 +65,11 @@ const DashboardLayout = () => {
             <h4 className="text-cusblack text-h4-m md:text-h4 font-bold pt-4">
               {pageName}
             </h4>
-            <Profile user={profile} className="hidden md:flex" />
+            <Profile
+              variant="horizontal"
+              user={profile}
+              className="hidden md:flex"
+            />
           </div>
           <Outlet />
         </div>

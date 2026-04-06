@@ -11,9 +11,14 @@ const Navbar = ({ handleHamburger }: Props) => {
     <nav className="fixed top-0 w-full z-50 flex items-center md:hidden justify-between h-12 px-4 bg-cuswhite shadow-md">
       <button
         onClick={handleHamburger}
-        className="p-2 rounded-md hover:bg-cusgrey cursor-pointer"
+        className="p-1 rounded-md hover:bg-cusgrey cursor-pointer"
       >
-        <Menu strokeWidth={2} className="text-cusblack" />
+        <Menu
+          strokeWidth={2}
+          width={20}
+          height={20}
+          className="text-cusblack"
+        />
       </button>
       <NavLink to="/" className="flex items-center gap-1.5 font-bold">
         <img src={logo} alt="logo" className="w-5 h-5" />
