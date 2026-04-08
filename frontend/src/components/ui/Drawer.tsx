@@ -14,11 +14,11 @@ import type { UserSchema } from "../../schemas/userSchema";
 
 type Props = {
   user: UserSchema | null;
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openDrawer: boolean;
+  setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Drawer = ({ user, isOpen, setIsOpen }: Props) => {
+const Drawer = ({ user, openDrawer, setOpenDrawer }: Props) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -33,13 +33,13 @@ const Drawer = ({ user, isOpen, setIsOpen }: Props) => {
   return (
     <aside
       className={`flex md:hidden flex-col fixed z-100 left-0 top-0 h-screen w-[240px] gap-5 rounded-[0px_15px_15px_0px] p-[32px_32px_285px_32px] bg-cuswhite shadow-md transform transition-transform duration-300 ease-in-out
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        ${openDrawer ? "translate-x-0" : "-translate-x-full"}`}
     >
       <Profile user={user} variant="vertical" />
       <div className="flex flex-col gap-5 ">
         <NavLink
           to="/"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setOpenDrawer(false)}
           className={({ isActive }) =>
             `flex items-center gap-1.5 w-full rounded-lg px-2.5 py-1.25 transition
    ${isActive ? "text-cuswhite bg-cusorange" : "text-cusblack hover:text-cuswhite hover:bg-cusorange"}`
@@ -50,7 +50,7 @@ const Drawer = ({ user, isOpen, setIsOpen }: Props) => {
         </NavLink>
         <NavLink
           to="/income"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setOpenDrawer(false)}
           className={({ isActive }) =>
             `flex items-center gap-1.5 w-full rounded-lg px-2.5 py-1.25 transition
    ${isActive ? "text-cuswhite bg-cusorange" : "text-cusblack hover:text-cuswhite hover:bg-cusorange"}`
@@ -61,7 +61,7 @@ const Drawer = ({ user, isOpen, setIsOpen }: Props) => {
         </NavLink>
         <NavLink
           to="/expense"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setOpenDrawer(false)}
           className={({ isActive }) =>
             `flex items-center gap-1.5 w-full rounded-lg px-2.5 py-1.25 transition
    ${isActive ? "text-cuswhite bg-cusorange" : "text-cusblack hover:text-cuswhite hover:bg-cusorange"}`
@@ -73,7 +73,7 @@ const Drawer = ({ user, isOpen, setIsOpen }: Props) => {
         <NavLink
           //TEMPORARY
           to="/setting"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setOpenDrawer(false)}
           className={({ isActive }) =>
             `flex items-center gap-1.5 w-full rounded-lg px-2.5 py-1.25 transition
    ${isActive ? "text-cuswhite bg-cusorange" : "text-cusblack hover:text-cuswhite hover:bg-cusorange"}`
