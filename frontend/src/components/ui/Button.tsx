@@ -4,14 +4,10 @@ import { useOutletContext } from "react-router";
 
 type Props = {
   variant: "addIncome" | "addExpense";
-};
-
-type OutletContext = {
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const Button = ({ variant }: Props) => {
-  const { setOpenModal } = useOutletContext<OutletContext>();
+const Button = ({ variant, setOpenModal }: Props) => {
   return (
     <button
       onClick={() => setOpenModal(variant)}

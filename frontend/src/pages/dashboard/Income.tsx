@@ -3,9 +3,16 @@ import Card from "../../components/ui/Card";
 import { useIncome } from "../../hooks/useIncome";
 import IncomeList from "../../components/ui/list/IncomeList";
 import Button from "../../components/ui/Button";
+import type { IncomeSchema } from "../../schemas/incomeSchema";
+import { useOutletContext } from "react-router";
+
+type OutletContext = {
+  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
+  income: IncomeSchema[];
+};
 
 const Income = () => {
-  const { income } = useIncome();
+  const { setOpenModal, income } = useOutletContext<OutletContext>();
 
   return (
     <div className="flex flex-col gap-3.75">
@@ -20,7 +27,7 @@ const Income = () => {
             <p className="text-bd-m md:text-bd text-cusblack font-semibold">
               Income Source
             </p>
-            <Button variant="addIncome" />
+            <Button variant="addIncome" setOpenModal={setOpenModal} />
           </div>
           <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
             <IncomeList datas={income} />

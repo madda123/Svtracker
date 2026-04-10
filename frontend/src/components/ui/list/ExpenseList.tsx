@@ -1,8 +1,5 @@
 import React from "react";
 import type { ExpenseSchema } from "../../../schemas/expenseSchema";
-import { formatRupiah } from "../../../utils/formatRupiah";
-import { formatDate } from "../../../utils/formatDate";
-import { TrendingDown } from "lucide-react";
 import List from "./List";
 
 type Props = {

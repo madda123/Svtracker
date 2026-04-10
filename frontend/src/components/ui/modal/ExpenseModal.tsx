@@ -13,9 +13,10 @@ import AddExpenseForm from "../form/AddExpenseForm";
 type Props = {
   openModal: string | null;
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
+  onSuccess: () => void;
 };
 
-const ExpenseModal = ({ openModal, setOpenModal }: Props) => {
+const ExpenseModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
   const form = useForm<ExpenseSchemaInput, unknown, ExpenseSchema>({
     resolver: zodResolver(expenseSchema),
     defaultValues: {
@@ -31,6 +32,7 @@ const ExpenseModal = ({ openModal, setOpenModal }: Props) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       await addExpense(value);
 
+      onSuccess?.();
       setOpenModal(null);
     } catch (error) {
       console.error(error);

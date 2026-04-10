@@ -1,11 +1,17 @@
 import React from "react";
 import Card from "../../components/ui/Card";
-import { useExpense } from "../../hooks/useExpense";
 import ExpenseList from "../../components/ui/list/ExpenseList";
 import Button from "../../components/ui/Button";
+import type { ExpenseSchema } from "../../schemas/expenseSchema";
+import { useOutletContext } from "react-router";
+
+type OutletContext = {
+  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
+  expense: ExpenseSchema[];
+};
 
 const Expense = () => {
-  const { expense } = useExpense();
+  const { setOpenModal, expense } = useOutletContext<OutletContext>();
 
   return (
     <div className="flex flex-col gap-3.75">
@@ -20,7 +26,7 @@ const Expense = () => {
             <p className="text-bd-m md:text-bd text-cusblack font-semibold">
               Expense Category
             </p>
-            <Button variant="addExpense" />
+            <Button variant="addExpense" setOpenModal={setOpenModal} />
           </div>
           <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
             <ExpenseList datas={expense} />

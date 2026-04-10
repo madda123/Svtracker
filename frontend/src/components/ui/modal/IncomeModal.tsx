@@ -13,9 +13,10 @@ import AddIncomeForm from "../form/AddIncomeForm";
 type Props = {
   openModal: string | null;
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
+  onSuccess: () => void;
 };
 
-const IncomeModal = ({ openModal, setOpenModal }: Props) => {
+const IncomeModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
   const form = useForm<IncomeSchemaInput, unknown, IncomeSchema>({
     resolver: zodResolver(incomeSchema),
     defaultValues: {
@@ -31,6 +32,7 @@ const IncomeModal = ({ openModal, setOpenModal }: Props) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       await addIncome(value);
 
+      onSuccess?.();
       setOpenModal(null);
     } catch (error) {
       console.error(error);

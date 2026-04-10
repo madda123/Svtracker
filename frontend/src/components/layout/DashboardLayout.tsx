@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactNode } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Sidebar from "../ui/main/Sidebar";
 import { Outlet, useLocation } from "react-router";
@@ -9,6 +9,8 @@ import Navbar from "../ui/main/Navbar";
 import Drawer from "../ui/main/Drawer";
 import IncomeModal from "../ui/modal/IncomeModal";
 import ExpenseModal from "../ui/modal/ExpenseModal";
+import { useIncome } from "../../hooks/useIncome";
+import { useExpense } from "../../hooks/useExpense";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -22,6 +24,9 @@ const DashboardLayout = () => {
   const [pageName, setPageName] = useState<string>("");
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<string | null>(null);
+
+  const { income, refetchIncomeData } = useIncome();
+  const { expense, refetchExpenseData } = useExpense();
 
   const location = useLocation();
 
@@ -60,8 +65,16 @@ const DashboardLayout = () => {
         />
       )}
 
-      <IncomeModal openModal={openModal} setOpenModal={setOpenModal} />
-      <ExpenseModal openModal={openModal} setOpenModal={setOpenModal} />
+      <IncomeModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSuccess={refetchIncomeData}
+      />
+      <ExpenseModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSuccess={refetchExpenseData}
+      />
       <Drawer
         user={profile}
         openDrawer={openDrawer}
@@ -84,6 +97,8 @@ const DashboardLayout = () => {
           <Outlet
             context={{
               setOpenModal: setOpenModal,
+              income: income,
+              expense: expense,
             }}
           />
         </div>
