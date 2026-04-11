@@ -19,15 +19,9 @@ export const getAllExpense = async () => {
   }
 };
 
-export const addExpense = async ({
-  icon,
-  category,
-  amount,
-  date,
-}: ExpenseSchema) => {
+export const addExpense = async ({ category, amount, date }: ExpenseSchema) => {
   try {
     const newExpense = {
-      icon,
       category,
       amount,
       date,

@@ -19,15 +19,9 @@ export const getAllIncome = async () => {
   }
 };
 
-export const addIncome = async ({
-  icon,
-  source,
-  amount,
-  date,
-}: IncomeSchema) => {
+export const addIncome = async ({ source, amount, date }: IncomeSchema) => {
   try {
     const newIncome = {
-      icon,
       source,
       amount,
       date,

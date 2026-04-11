@@ -3,7 +3,6 @@ import { z } from "zod";
 export const incomeSchema = z.object({
   _id: z.string().optional(),
   userId: z.string().optional(),
-  icon: z.string(),
   source: z.string(),
   amount: z.string().transform((val) => Number(val)),
   date: z.string(),

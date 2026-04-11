@@ -4,7 +4,9 @@ export const getAllIncome = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const income = await Income.find({ userId }).sort({ date: -1 });
+    const income = await Income.find({ userId })
+      .sort({ date: -1 })
+      .populate("source");
 
     res.status(200).json({ income, message: "Fetching income successful" });
   } catch (error) {
@@ -16,15 +18,14 @@ export const addIncome = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const { icon, source, amount, date } = req.body;
+    const { source, amount, date } = req.body;
 
-    if (!icon || !source || !amount) {
+    if (!source || !amount) {
       return res.status(400).json({ message: "Request body is empty" });
     }
 
     await Income.create({
       userId,
-      icon,
       source,
       amount,
       date: new Date(date),

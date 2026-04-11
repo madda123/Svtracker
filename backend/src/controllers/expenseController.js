@@ -4,7 +4,9 @@ export const getAllExpense = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const expense = await Expense.find({ userId }).sort({ date: -1 });
+    const expense = await Expense.find({ userId })
+      .sort({ date: -1 })
+      .populate("category");
 
     res.status(200).json({ expense, message: "Fetching expense successful" });
   } catch (error) {
@@ -16,15 +18,14 @@ export const addExpense = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const { icon, category, amount, date } = req.body;
+    const { category, amount, date } = req.body;
 
-    if (!icon || !category || !amount) {
+    if (!category || !amount) {
       return res.status(400).json({ message: "Request body is empty" });
     }
 
     await Expense.create({
       userId,
-      icon,
       category,
       amount,
       date: new Date(date),

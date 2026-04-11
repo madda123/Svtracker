@@ -1,9 +1,8 @@
-import { optional, z } from "zod";
+import { z } from "zod";
 
 export const expenseSchema = z.object({
   _id: z.string().optional(),
   userId: z.string().optional(),
-  icon: z.string(),
   category: z.string(),
   amount: z.string().transform((val) => Number(val)),
   date: z.string(),

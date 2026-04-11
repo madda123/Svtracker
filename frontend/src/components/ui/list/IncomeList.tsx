@@ -13,7 +13,7 @@ const IncomeList = ({ datas }: Props) => {
         return (
           <List
             key={data._id}
-            icon={data.icon}
+            icon={data.source}
             source={data.source}
             date={data.date}
             amount={data.amount}
