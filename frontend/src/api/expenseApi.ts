@@ -1,4 +1,8 @@
-import type { ExpenseSchema } from "../schemas/expenseSchema";
+import type {
+  ExpenseFormInput,
+  ExpenseFormOutput,
+  ExpenseSchema,
+} from "../schemas/expenseSchema";
 
 export const getAllExpense = async () => {
   try {
@@ -19,7 +23,11 @@ export const getAllExpense = async () => {
   }
 };
 
-export const addExpense = async ({ category, amount, date }: ExpenseSchema) => {
+export const addExpense = async ({
+  category,
+  amount,
+  date,
+}: ExpenseFormOutput) => {
   try {
     const newExpense = {
       category,

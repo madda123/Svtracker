@@ -30,7 +30,9 @@ export const getDashboardData = async (req, res) => {
       date: {
         $gte: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000),
       },
-    }).sort({ date: -1 });
+    })
+      .sort({ date: -1 })
+      .populate("source");
 
     const incomeLast60Days = last60DaysIncomeTransactions.reduce(
       (sum, transaction) => sum + transaction.amount,
@@ -40,7 +42,9 @@ export const getDashboardData = async (req, res) => {
     const last30DaysExpenseTransactions = await Expense.find({
       userId,
       date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-    }).sort({ date: -1 });
+    })
+      .sort({ date: -1 })
+      .populate("category");
 
     const expenseLast30Days = last30DaysExpenseTransactions.reduce(
       (sum, transaction) => sum + transaction.amount,
@@ -48,18 +52,24 @@ export const getDashboardData = async (req, res) => {
     );
 
     const lastTransactions = [
-      ...(await Income.find({ userId }).sort({ date: -1 }).limit(5)).map(
-        (txn) => ({
-          ...txn.toObject(),
-          type: "income",
-        }),
-      ),
-      ...(await Expense.find({ userId }).sort({ date: -1 }).limit(5)).map(
-        (txn) => ({
-          ...txn.toObject(),
-          type: "expense",
-        }),
-      ),
+      ...(
+        await Income.find({ userId })
+          .sort({ date: -1 })
+          .populate("source")
+          .limit(5)
+      ).map((txn) => ({
+        ...txn.toObject(),
+        type: "income",
+      })),
+      ...(
+        await Expense.find({ userId })
+          .sort({ date: -1 })
+          .populate("category")
+          .limit(5)
+      ).map((txn) => ({
+        ...txn.toObject(),
+        type: "expense",
+      })),
     ].sort((a, b) => b.date - a.date);
 
     res.json({

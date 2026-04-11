@@ -16,9 +16,9 @@ const RecentTransactions = ({ transactions }: Props) => {
         return (
           <List
             key={transaction._id}
-            icon={transaction.icon}
-            source={transaction.source}
-            category={transaction.category}
+            icon={`${transaction.source ? transaction.source.icon : transaction.category.icon}`}
+            sourceName={transaction.source.name}
+            categoryName={transaction.category.name}
             date={transaction.date}
             amount={transaction.amount}
           />

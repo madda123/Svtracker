@@ -1,39 +1,21 @@
 import React from "react";
 import type { UseFormReturn } from "react-hook-form";
 import type {
+  IncomeFormInput,
+  IncomeFormOutput,
   IncomeSchema,
-  IncomeSchemaInput,
 } from "../../../schemas/incomeSchema";
 
 type Props = {
-  form: UseFormReturn<IncomeSchemaInput, unknown, IncomeSchema>;
-  handleSubmit: (value: IncomeSchema) => Promise<void>;
+  form: UseFormReturn<IncomeFormInput, unknown, IncomeFormOutput>;
+  handleSubmit: (value: IncomeFormOutput) => Promise<void>;
+  income: IncomeSchema[];
 };
 
-const AddIncomeForm = ({ form, handleSubmit }: Props) => {
+const AddIncomeForm = ({ form, handleSubmit, income }: Props) => {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <div className="flex flex-col gap-2.5">
-        <div className="flex flex-col">
-          <label
-            htmlFor="icon"
-            className="text-bd-m md:text-bd font-semibold mb-1"
-          >
-            Icon
-          </label>
-          <input
-            type="text"
-            id="icon"
-            placeholder="blasbald"
-            {...form.register("icon")}
-            className="input-box"
-          />
-          {form.formState.errors.icon && (
-            <p className="mt-1 text-bs-m md:text-bs text-danger">
-              {form.formState.errors.icon.message}
-            </p>
-          )}
-        </div>
         <div className="flex flex-col">
           <label
             htmlFor="source"
@@ -41,13 +23,19 @@ const AddIncomeForm = ({ form, handleSubmit }: Props) => {
           >
             Source
           </label>
-          <input
-            type="text"
+          <select
             id="source"
-            placeholder="tax"
             {...form.register("source")}
             className="input-box"
-          />
+          >
+            {income.map((i) => {
+              return (
+                <option key={i.source._id} value={i.source._id}>
+                  {i.source.name}
+                </option>
+              );
+            })}
+          </select>
           {form.formState.errors.source && (
             <p className="mt-1 text-bs-m md:text-bs text-danger">
               {form.formState.errors.source.message}

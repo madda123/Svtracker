@@ -1,4 +1,4 @@
-import type { IncomeSchema } from "../schemas/incomeSchema";
+import type { IncomeFormOutput, IncomeSchema } from "../schemas/incomeSchema";
 
 export const getAllIncome = async () => {
   try {
@@ -19,7 +19,7 @@ export const getAllIncome = async () => {
   }
 };
 
-export const addIncome = async ({ source, amount, date }: IncomeSchema) => {
+export const addIncome = async ({ source, amount, date }: IncomeFormOutput) => {
   try {
     const newIncome = {
       source,

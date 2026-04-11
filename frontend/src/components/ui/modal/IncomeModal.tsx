@@ -3,9 +3,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
-  incomeSchema,
+  incomeFormSchema,
+  type IncomeFormInput,
+  type IncomeFormOutput,
   type IncomeSchema,
-  type IncomeSchemaInput,
 } from "../../../schemas/incomeSchema";
 import { addIncome } from "../../../api/incomeApi";
 import AddIncomeForm from "../form/AddIncomeForm";
@@ -14,20 +15,15 @@ type Props = {
   openModal: string | null;
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
   onSuccess: () => void;
+  income: IncomeSchema[];
 };
 
-const IncomeModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
-  const form = useForm<IncomeSchemaInput, unknown, IncomeSchema>({
-    resolver: zodResolver(incomeSchema),
-    defaultValues: {
-      icon: "",
-      source: "",
-      amount: "",
-      date: "",
-    },
+const IncomeModal = ({ openModal, setOpenModal, onSuccess, income }: Props) => {
+  const form = useForm<IncomeFormInput, unknown, IncomeFormOutput>({
+    resolver: zodResolver(incomeFormSchema),
   });
 
-  const handleSubmit = async (value: IncomeSchema) => {
+  const handleSubmit = async (value: IncomeFormOutput) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       await addIncome(value);
@@ -50,7 +46,11 @@ const IncomeModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
         ></div>
         <div className="fixed z-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="relative bg-cuswhite rounded-lg p-6 w-130 h-140 ">
-            <AddIncomeForm form={form} handleSubmit={handleSubmit} />
+            <AddIncomeForm
+              form={form}
+              handleSubmit={handleSubmit}
+              income={income}
+            />
           </div>
         </div>
       </>

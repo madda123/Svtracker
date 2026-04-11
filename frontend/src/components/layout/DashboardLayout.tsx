@@ -54,11 +54,13 @@ const DashboardLayout = () => {
         openModal={openModal}
         setOpenModal={setOpenModal}
         onSuccess={refetchIncomeData}
+        income={income}
       />
       <ExpenseModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         onSuccess={refetchExpenseData}
+        expense={expense}
       />
       <Drawer
         user={profile}

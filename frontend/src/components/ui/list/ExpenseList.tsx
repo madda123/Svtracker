@@ -13,8 +13,8 @@ const ExpenseList = ({ datas }: Props) => {
         return (
           <List
             key={data._id}
-            icon={data.category}
-            category={data.category}
+            icon={data.category.icon}
+            categoryName={data.category.name}
             date={data.date}
             amount={data.amount}
           />

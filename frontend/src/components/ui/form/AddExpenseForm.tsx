@@ -1,39 +1,21 @@
 import React from "react";
 import type {
+  ExpenseFormInput,
+  ExpenseFormOutput,
   ExpenseSchema,
-  ExpenseSchemaInput,
 } from "../../../schemas/expenseSchema";
 import type { UseFormReturn } from "react-hook-form";
 
 type Props = {
-  form: UseFormReturn<ExpenseSchemaInput, unknown, ExpenseSchema>;
-  handleSubmit: (value: ExpenseSchema) => Promise<void>;
+  form: UseFormReturn<ExpenseFormInput, unknown, ExpenseFormOutput>;
+  handleSubmit: (value: ExpenseFormOutput) => Promise<void>;
+  expense: ExpenseSchema[];
 };
 
-const AddExpenseForm = ({ form, handleSubmit }: Props) => {
+const AddExpenseForm = ({ form, handleSubmit, expense }: Props) => {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <div className="flex flex-col gap-2.5">
-        <div className="flex flex-col">
-          <label
-            htmlFor="icon"
-            className="text-bd-m md:text-bd font-semibold mb-1"
-          >
-            Icon
-          </label>
-          <input
-            type="text"
-            id="icon"
-            placeholder="blasbald"
-            {...form.register("icon")}
-            className="input-box"
-          />
-          {form.formState.errors.icon && (
-            <p className="mt-1 text-bs-m md:text-bs text-danger">
-              {form.formState.errors.icon.message}
-            </p>
-          )}
-        </div>
         <div className="flex flex-col">
           <label
             htmlFor="category"
@@ -41,13 +23,19 @@ const AddExpenseForm = ({ form, handleSubmit }: Props) => {
           >
             Category
           </label>
-          <input
-            type="text"
+          <select
             id="category"
-            placeholder="tax"
             {...form.register("category")}
             className="input-box"
-          />
+          >
+            {expense.map((i) => {
+              return (
+                <option key={i.category._id} value={i.category._id}>
+                  {i.category.name}
+                </option>
+              );
+            })}
+          </select>
           {form.formState.errors.category && (
             <p className="mt-1 text-bs-m md:text-bs text-danger">
               {form.formState.errors.category.message}

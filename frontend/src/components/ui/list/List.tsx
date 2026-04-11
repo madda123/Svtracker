@@ -5,13 +5,13 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 
 type Props = {
   icon: string;
-  source?: string;
-  category?: string;
+  sourceName?: string;
+  categoryName?: string;
   date: string;
   amount: number;
 };
 
-const List = ({ icon, source, category, date, amount }: Props) => {
+const List = ({ icon, sourceName, categoryName, date, amount }: Props) => {
   return (
     <div className="w-full flex justify-between items-center p-1 md:p-2 rounded-md hover:bg-cusgrey">
       <div className="flex gap-2 items-center">
@@ -22,7 +22,7 @@ const List = ({ icon, source, category, date, amount }: Props) => {
         />
         <div className="flex flex-col items-start">
           <p className="text-bs-m md:text-bs text-cusblack font-semibold capitalize whitespace-nowrap">
-            {source ? source : category}
+            {sourceName ? sourceName : categoryName}
           </p>
           <p className="text-capt-m md:text-capt text-cusdarkgrey font-semibold whitespace-nowrap">
             {formatDate(date)}
@@ -31,9 +31,9 @@ const List = ({ icon, source, category, date, amount }: Props) => {
       </div>
       <div>
         <div
-          className={`${source ? "flex items-center rounded-md gap-1 py-1 px-2 whitespace-nowrap bg-success/10 text-success" : "flex items-center rounded-md gap-1 py-1 px-2 whitespace-nowrap bg-danger/10 text-danger"}`}
+          className={`${sourceName ? "flex items-center rounded-md gap-1 py-1 px-2 whitespace-nowrap bg-success/10 text-success" : "flex items-center rounded-md gap-1 py-1 px-2 whitespace-nowrap bg-danger/10 text-danger"}`}
         >
-          {source ? (
+          {sourceName ? (
             <>
               <p className="text-capt-m md:text-capt font-semibold">
                 + {formatRupiah(amount)}
