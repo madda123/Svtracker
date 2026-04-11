@@ -6,19 +6,20 @@ import {
   incomeFormSchema,
   type IncomeFormInput,
   type IncomeFormOutput,
-  type IncomeSchema,
 } from "../../../schemas/incomeSchema";
 import { addIncome } from "../../../api/incomeApi";
 import AddIncomeForm from "../form/AddIncomeForm";
+import Card from "../Card";
+import type { SourceSchema } from "../../../schemas/sourceSchema";
 
 type Props = {
   openModal: string | null;
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
   onSuccess: () => void;
-  income: IncomeSchema[];
+  source: SourceSchema[];
 };
 
-const IncomeModal = ({ openModal, setOpenModal, onSuccess, income }: Props) => {
+const IncomeModal = ({ openModal, setOpenModal, onSuccess, source }: Props) => {
   const form = useForm<IncomeFormInput, unknown, IncomeFormOutput>({
     resolver: zodResolver(incomeFormSchema),
   });
@@ -45,13 +46,13 @@ const IncomeModal = ({ openModal, setOpenModal, onSuccess, income }: Props) => {
           className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-30 opacity-100"
         ></div>
         <div className="fixed z-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="relative bg-cuswhite rounded-lg p-6 w-130 h-140 ">
+          <Card className="relative w-100 h-120">
             <AddIncomeForm
               form={form}
               handleSubmit={handleSubmit}
-              income={income}
+              source={source}
             />
-          </div>
+          </Card>
         </div>
       </>
     );

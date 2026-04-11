@@ -10,6 +10,8 @@ import ExpenseModal from "../ui/modal/ExpenseModal";
 import { useIncome } from "../../hooks/useIncome";
 import { useExpense } from "../../hooks/useExpense";
 import { useUser } from "../../hooks/useUser";
+import { useSource } from "../../hooks/useSource";
+import { useCategory } from "../../hooks/useCategory";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -26,6 +28,8 @@ const DashboardLayout = () => {
   const { income, refetchIncomeData } = useIncome();
   const { expense, refetchExpenseData } = useExpense();
   const { profile, refetchUserData } = useUser();
+  const { source, refetchSourceData } = useSource();
+  const { category, refetchCategoryData } = useCategory();
 
   const location = useLocation();
 
@@ -54,13 +58,13 @@ const DashboardLayout = () => {
         openModal={openModal}
         setOpenModal={setOpenModal}
         onSuccess={refetchIncomeData}
-        income={income}
+        source={source}
       />
       <ExpenseModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         onSuccess={refetchExpenseData}
-        expense={expense}
+        category={category}
       />
       <Drawer
         user={profile}

@@ -3,16 +3,16 @@ import type { UseFormReturn } from "react-hook-form";
 import type {
   IncomeFormInput,
   IncomeFormOutput,
-  IncomeSchema,
 } from "../../../schemas/incomeSchema";
+import type { SourceSchema } from "../../../schemas/sourceSchema";
 
 type Props = {
   form: UseFormReturn<IncomeFormInput, unknown, IncomeFormOutput>;
   handleSubmit: (value: IncomeFormOutput) => Promise<void>;
-  income: IncomeSchema[];
+  source: SourceSchema[];
 };
 
-const AddIncomeForm = ({ form, handleSubmit, income }: Props) => {
+const AddIncomeForm = ({ form, handleSubmit, source }: Props) => {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <div className="flex flex-col gap-2.5">
@@ -28,10 +28,10 @@ const AddIncomeForm = ({ form, handleSubmit, income }: Props) => {
             {...form.register("source")}
             className="input-box"
           >
-            {income.map((i) => {
+            {source.map((s) => {
               return (
-                <option key={i.source._id} value={i.source._id}>
-                  {i.source.name}
+                <option key={s._id} value={s._id}>
+                  {s.name}
                 </option>
               );
             })}

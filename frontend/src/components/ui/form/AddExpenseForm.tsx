@@ -5,14 +5,15 @@ import type {
   ExpenseSchema,
 } from "../../../schemas/expenseSchema";
 import type { UseFormReturn } from "react-hook-form";
+import type { CategorySchema } from "../../../schemas/categorySchema";
 
 type Props = {
   form: UseFormReturn<ExpenseFormInput, unknown, ExpenseFormOutput>;
   handleSubmit: (value: ExpenseFormOutput) => Promise<void>;
-  expense: ExpenseSchema[];
+  category: CategorySchema[];
 };
 
-const AddExpenseForm = ({ form, handleSubmit, expense }: Props) => {
+const AddExpenseForm = ({ form, handleSubmit, category }: Props) => {
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <div className="flex flex-col gap-2.5">
@@ -28,10 +29,10 @@ const AddExpenseForm = ({ form, handleSubmit, expense }: Props) => {
             {...form.register("category")}
             className="input-box"
           >
-            {expense.map((i) => {
+            {category.map((c) => {
               return (
-                <option key={i.category._id} value={i.category._id}>
-                  {i.category.name}
+                <option key={c._id} value={c._id}>
+                  {c.name}
                 </option>
               );
             })}
