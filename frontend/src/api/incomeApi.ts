@@ -9,6 +9,7 @@ export const getAllIncome = async () => {
 
     if (!res.ok) {
       console.log("Failed to get income data");
+      return
     }
 
     const data = await res.json();
@@ -39,6 +40,7 @@ export const addIncome = async ({ source, amount, date }: IncomeFormOutput) => {
 
     if (!res.ok) {
       console.log("Failed to add income data");
+      return
     }
 
     const result = await res.json();
@@ -60,6 +62,7 @@ export const deleteIncome = async (id: string) => {
 
     if (!res.ok) {
       console.log("Failed to delete income data");
+      return
     }
 
     const result = await res.json();

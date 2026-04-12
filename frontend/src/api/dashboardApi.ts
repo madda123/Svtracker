@@ -10,6 +10,7 @@ export const getDashboard = async () => {
 
     if (!res.ok) {
       console.log("Failed to get dashboard data");
+      return;
     }
 
     const data = await res.json();

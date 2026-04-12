@@ -13,6 +13,7 @@ export const getAllExpense = async () => {
 
     if (!res.ok) {
       console.log("Failed to get expense data");
+      return
     }
 
     const data = await res.json();
@@ -47,6 +48,7 @@ export const addExpense = async ({
 
     if (!res.ok) {
       console.log("Failed to add expense data");
+      return
     }
 
     const result = await res.json();
@@ -68,6 +70,7 @@ export const deleteExpense = async (id: string) => {
 
     if (!res.ok) {
       console.log("Failed to delete expense data");
+      return
     }
 
     const result = await res.json();

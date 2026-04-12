@@ -12,6 +12,7 @@ export const getAllCategory = async () => {
 
     if (!res.ok) {
       console.log("Failed to get category data");
+      return;
     }
 
     const data = await res.json();
@@ -44,6 +45,7 @@ export const addCategory = async ({ name, icon }: CategorySchema) => {
 
     if (!res.ok) {
       console.log("Failed to add category data");
+      return;
     }
 
     const result = await res.json();
@@ -65,6 +67,7 @@ export const deleteCategory = async (id: string) => {
 
     if (!res.ok) {
       console.log("Failed to delete category data");
+      return;
     }
 
     const result = await res.json();

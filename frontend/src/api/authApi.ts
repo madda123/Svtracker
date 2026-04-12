@@ -30,6 +30,7 @@ export const register = async (user: User) => {
 
   if (!res.ok) {
     console.log("Failed to register account");
+    return;
   }
 
   return res.json();
@@ -47,6 +48,7 @@ export const login = async (user: User) => {
 
   if (!res.ok) {
     console.log("Failed to login");
+    return;
   }
 
   return res.json();
@@ -63,5 +65,6 @@ export const logout = async () => {
 
   if (!res.ok) {
     console.log("Failed to logout");
+    return;
   }
 };
