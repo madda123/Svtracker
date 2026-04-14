@@ -7,9 +7,16 @@ type Props = {
   className?: string;
   variant?: "horizontal" | "vertical";
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
+  setOpenDrawer?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Profile = ({ user, className, variant, setOpenModal }: Props) => {
+const Profile = ({
+  user,
+  className,
+  variant,
+  setOpenModal,
+  setOpenDrawer,
+}: Props) => {
   if (variant === "vertical") {
     return (
       <div className={`flex flex-col items-center gap-4 ${className}`}>
@@ -23,6 +30,7 @@ const Profile = ({ user, className, variant, setOpenModal }: Props) => {
             style={variant}
             variant="editProfile"
             setOpenModal={setOpenModal}
+            setOpenDrawer={setOpenDrawer}
           />
         </div>
         <div className="flex flex-col gap-1">

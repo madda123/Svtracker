@@ -10,6 +10,7 @@ type AddProps = {
 type EditProps = {
   variant: "editProfile";
   style: "vertical" | "horizontal";
+  setOpenDrawer?: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
@@ -25,10 +26,19 @@ export const AddButton = ({ variant, setOpenModal }: AddProps) => {
   );
 };
 
-export const EditButton = ({ variant, style, setOpenModal }: EditProps) => {
+export const EditButton = ({
+  variant,
+  style,
+  setOpenDrawer,
+  setOpenModal,
+}: EditProps) => {
+  const handleClick = () => {
+    setOpenModal(variant);
+    setOpenDrawer?.(false);
+  };
   return (
     <button
-      onClick={() => setOpenModal(variant)}
+      onClick={handleClick}
       className={`${style === "horizontal" ? "right-0 bottom-0" : "right-1 bottom-0"} absolute bg-cusorange rounded-full p-1 flex justify-center items-center shadow-lg z-10 cursor-pointer`}
     >
       <Pen
