@@ -5,7 +5,7 @@ const getSignature = async (
 ) => {
   try {
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/cloudinary/signature`,
+      `${import.meta.env.VITE_API_URL}/api/v1/cloudinary/signature`,
       {
         method: "POST",
         credentials: "include",
@@ -33,6 +33,10 @@ export const uploadToCloudinary = async (file: File, uploadType: string) => {
   try {
     const signatureData = await getSignature(file.type, file.size, uploadType);
 
+    if (!signatureData) {
+      throw new Error("Failed to get upload signature");
+    }
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("signature", signatureData.signature);
@@ -56,7 +60,7 @@ export const uploadToCloudinary = async (file: File, uploadType: string) => {
     const data = await res.json();
     return {
       url: data.secure_url,
-      publicId: data.publicId,
+      publicId: data.public_id,
     };
   } catch (error) {
     console.log("Internal server error");

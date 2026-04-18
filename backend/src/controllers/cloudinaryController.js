@@ -4,15 +4,15 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 const UPLOAD_CONFIG = {
   avatar: {
-    getFolder: (userId) => `avatars/users/${userId}`,
+    getFolder: (userId) => `svtracker/avatars/users/${userId}`,
     maxSize: 2 * 1024 * 1024,
   },
   source: {
-    getFolder: (userId) => `sources/users/${userId}`,
+    getFolder: (userId) => `svtracker/sources/users/${userId}`,
     maxSize: 2 * 1024 * 1024,
   },
   category: {
-    getFolder: (userId) => `categories/users/${userId}`,
+    getFolder: (userId) => `svtracker/categories/users/${userId}`,
     maxSize: 2 * 1024 * 1024,
   },
 };
