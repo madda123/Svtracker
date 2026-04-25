@@ -5,6 +5,7 @@ import type {
   IncomeFormOutput,
 } from "../../../schemas/incomeSchema";
 import type { SourceSchema } from "../../../schemas/sourceSchema";
+import CustomSelect from "../CustomSelect";
 
 type Props = {
   form: UseFormReturn<IncomeFormInput, unknown, IncomeFormOutput>;
@@ -13,6 +14,10 @@ type Props = {
 };
 
 const AddIncomeForm = ({ form, handleSubmit, source }: Props) => {
+  const sourceOptions = source.map((s) => ({
+    label: s.name,
+    value: s._id,
+  }));
   return (
     <div className="p-2 flex flex-col gap-4">
       <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -24,24 +29,13 @@ const AddIncomeForm = ({ form, handleSubmit, source }: Props) => {
             >
               Source
             </label>
-            <select
-              id="source"
-              {...form.register("source")}
-              className="select-box"
-            >
-              {source.map((s) => {
-                return (
-                  <option key={s._id} value={s._id}>
-                    {s.name}
-                  </option>
-                );
-              })}
-            </select>
-            {form.formState.errors.source && (
-              <p className="mt-1 text-bs-m md:text-bs text-danger">
-                {form.formState.errors.source.message}
-              </p>
-            )}
+            <CustomSelect
+              fieldName="source"
+              form={form}
+              options={sourceOptions}
+              placeholder="Choose a source"
+              error={form.formState.errors.source?.message}
+            />
           </div>
           <div className="flex flex-col">
             <label

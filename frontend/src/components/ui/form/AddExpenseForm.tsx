@@ -6,6 +6,7 @@ import type {
 } from "../../../schemas/expenseSchema";
 import type { UseFormReturn } from "react-hook-form";
 import type { CategorySchema } from "../../../schemas/categorySchema";
+import CustomSelect from "../CustomSelect";
 
 type Props = {
   form: UseFormReturn<ExpenseFormInput, unknown, ExpenseFormOutput>;
@@ -14,6 +15,10 @@ type Props = {
 };
 
 const AddExpenseForm = ({ form, handleSubmit, category }: Props) => {
+  const categoryOptions = category.map((c) => ({
+    label: c.name,
+    value: c._id,
+  }));
   return (
     <div className="p-2 flex flex-col gap-4">
       <form onSubmit={form.handleSubmit(handleSubmit)} id="add-expense-form">
@@ -25,24 +30,13 @@ const AddExpenseForm = ({ form, handleSubmit, category }: Props) => {
             >
               Category
             </label>
-            <select
-              id="category"
-              {...form.register("category")}
-              className="select-box"
-            >
-              {category.map((c) => {
-                return (
-                  <option key={c._id} value={c._id}>
-                    {c.name}
-                  </option>
-                );
-              })}
-            </select>
-            {form.formState.errors.category && (
-              <p className="mt-1 text-bs-m md:text-bs text-danger">
-                {form.formState.errors.category.message}
-              </p>
-            )}
+            <CustomSelect
+              fieldName="category"
+              form={form}
+              options={categoryOptions}
+              placeholder="Choose a category"
+              error={form.formState.errors.category?.message}
+            />
           </div>
           <div className="flex flex-col">
             <label

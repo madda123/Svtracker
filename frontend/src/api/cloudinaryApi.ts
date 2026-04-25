@@ -34,7 +34,7 @@ export const uploadToCloudinary = async (file: File, uploadType: string) => {
     const signatureData = await getSignature(file.type, file.size, uploadType);
 
     if (!signatureData) {
-      throw new Error("Failed to get upload signature");
+      throw new Error("Failed to get signature");
     }
 
     const formData = new FormData();
